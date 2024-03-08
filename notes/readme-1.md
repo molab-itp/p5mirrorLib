@@ -1,10 +1,10 @@
 # [p5mirror](https://github.com/molab-itp/p5mirror)
 
-mirror your p5js.editor sketches into a git repo
+mirror your editor.p5js sketches into a git repo
 
-- Where are my p5js.editor sketches and collections ?
-  - make sure that all your p5js.editor projects are available in a git repo
-  - be prepared if p5js.editor server fails
+- Where are my editor.p5js sketches and collections ?
+  - make sure that all your editor.p5js projects are available in a git repo
+  - be prepared if editor.p5js server fails
 - How ?
   - command line scripts download your p5 sketches with associated media files
   - mark down files generated to list sketches and collections
@@ -28,12 +28,12 @@ mirror your p5js.editor sketches into a git repo
 
 ```
 
-# p5name is the place holder for your p5js.editor user name
+# p5name is the place holder for your editor.p5js user name
 
 # clone this repo as folder p5mirror
 
 # create a new repo, named it p5mirror-p5name
-# where p5name is your p5js.editor user name
+# where p5name is your editor.p5js user name
 # clone it next to p5mirror
 
 # in your preo p5mirror-p5name, add these file to .gitignore
@@ -89,7 +89,7 @@ sh downloads/gen/unzip.sh
 - [downloads/gen/download.sh](./downloads/gen/download.sh)
 - [downloads/gen/unzip.sh](./downloads/gen/unzip.sh)
 
-### JSON source from p5js.editor
+### JSON source from editor.p5js
 
 - [downloads/json/collections.json](./downloads/json/collections.json)
 - [downloads/json/sketches.json](./downloads/json/sketches.json)
