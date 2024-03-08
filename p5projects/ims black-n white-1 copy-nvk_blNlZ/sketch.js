@@ -40,7 +40,7 @@ function draw() {
 //   fill("yellow");
 //   rect((xpos + xlen + xlen) % width, 0, xlen, ylen);
 
-//   xpos = (xpos + 1) % width;
+  xpos = (xpos + 1) % width;
 }
 
 function init_dim() {

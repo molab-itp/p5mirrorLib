@@ -14,12 +14,16 @@
 
 ```
 
-bin/build.sh
+bin/mirror.sh --user p5name
+
+bin/build.sh --user p5name
 
 sh downloads/gen/download.sh
 
 sh downloads/gen/unzip.sh
 
-bin/p5projects-index.sh
+bin/p5projects-index.sh --user p5name
+
+bin/z-clean.sh
 
 ```

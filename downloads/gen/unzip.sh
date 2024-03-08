@@ -1,25 +1,25 @@
 cd "/Users/jht2/Documents/projects/2024/p5mo/p5mirror/p5mirrorLib/downloads/../p5projects"
 pwd
 #
-echo unzip 1 "2024-01-11 pound-genuary11-zSFx_e8ZD"
+echo unzip 1 "ims black-n white-1 copy-nvk_blNlZ"
+rm -rf "ims black-n white-1 copy-nvk_blNlZ"
+mkdir "ims black-n white-1 copy-nvk_blNlZ"
+cd "ims black-n white-1 copy-nvk_blNlZ"
+unzip -q "../../downloads/zips/ims black-n white-1 copy-nvk_blNlZ"
+cd ..
+#
+echo unzip 2 "2024-01-11 pound-genuary11-zSFx_e8ZD"
 rm -rf "2024-01-11 pound-genuary11-zSFx_e8ZD"
 mkdir "2024-01-11 pound-genuary11-zSFx_e8ZD"
 cd "2024-01-11 pound-genuary11-zSFx_e8ZD"
 unzip -q "../../downloads/zips/2024-01-11 pound-genuary11-zSFx_e8ZD"
 cd ..
 #
-echo unzip 2 "ims black-n white-1 copy-OX8NM-0MQ"
+echo unzip 3 "ims black-n white-1 copy-OX8NM-0MQ"
 rm -rf "ims black-n white-1 copy-OX8NM-0MQ"
 mkdir "ims black-n white-1 copy-OX8NM-0MQ"
 cd "ims black-n white-1 copy-OX8NM-0MQ"
 unzip -q "../../downloads/zips/ims black-n white-1 copy-OX8NM-0MQ"
-cd ..
-#
-echo unzip 3 "ims black-n white-1 copy-nvk_blNlZ"
-rm -rf "ims black-n white-1 copy-nvk_blNlZ"
-mkdir "ims black-n white-1 copy-nvk_blNlZ"
-cd "ims black-n white-1 copy-nvk_blNlZ"
-unzip -q "../../downloads/zips/ims black-n white-1 copy-nvk_blNlZ"
 cd ..
 #
 echo unzip 4 "background 0-NAReIkM1c"
