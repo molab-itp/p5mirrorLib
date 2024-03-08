@@ -15,6 +15,10 @@ async function run(my) {
   if (!fs.pathExistsSync(my.cl.json_path) || my.href_read) {
     await read_href(my.cl.collection_href, my.cl.json_path);
   }
+  if (!fs.pathExistsSync(my.cl.json_path)) {
+    console.log('Missing', my.cl.json_path);
+    return;
+  }
   let cols = fs.readJsonSync(my.cl.json_path);
 
   let lines = [];
@@ -72,7 +76,8 @@ async function read_href(collection_href, json_path) {
     cols.sort((item1, item2) => item1.name.localeCompare(item2.name));
     fs.writeJsonSync(json_path, cols, { spaces: 2 });
   } catch (err) {
-    console.log('collection read_href err', err);
+    // console.log('collection read_href err', err);
+    console.log('collection read_href error collection_href', collection_href);
   }
   console.timeEnd('collection read_href');
   console.log('');

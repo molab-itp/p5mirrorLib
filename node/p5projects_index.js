@@ -2,13 +2,14 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const parse_argv = require('./parse_argv');
+const { init } = require('./build_init');
 const { markDownQuote } = require('./markDownQuote');
 
 let my = {};
-parse_argv.init(my);
+init(my);
+run();
 
-function init() {
+function my_init() {
   // my.p5projects_path = path.join(my.root_path, '../p5projects');
   // console.log('p5projects_index ', my.p5projects_path);
   my.p5projects_index_path = path.join(my.p5projects_path, '../p5projects-index.md');
@@ -16,7 +17,7 @@ function init() {
 
 function run() {
   //
-  init();
+  my_init();
 
   if (
     !fs.pathExistsSync(my.p5projects_path) || //
@@ -50,8 +51,6 @@ function run() {
 
   fs.writeFileSync(my.p5projects_index_path, lines.join('\n'));
 }
-
-run();
 
 function extract_id(link) {
   // substring(indexStart, indexEnd)

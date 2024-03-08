@@ -3,17 +3,20 @@ const path = require('path');
 const axios = require('axios');
 
 const collection_list = require('./collection_list');
-const parse_argv = require('./parse_argv');
+const { init } = require('./build_init');
 const { markDownQuote } = require('./markDownQuote');
 
 let my = {};
 
-parse_argv.init(my);
+init(my);
+// console.log('run start');
+run();
+// console.log('run end');
 
-function init() {
-  my.gen_path = path.join(my.root_path, 'gen');
-  my.zips_path = path.join(my.root_path, 'zips');
-  my.json_path = path.join(my.root_path, 'json');
+function my_init() {
+  my.gen_path = path.join(my.downloads_path, 'gen');
+  my.zips_path = path.join(my.downloads_path, 'zips');
+  my.json_path = path.join(my.downloads_path, 'json');
 
   fs.ensureDirSync(my.gen_path);
   fs.ensureDirSync(my.zips_path);
@@ -35,12 +38,16 @@ function init() {
 
 async function run() {
   //
-  init();
+  my_init();
 
   await collection_list.run(my);
 
   if (!fs.pathExistsSync(my.sketch_json_path) || my.href_read) {
     await read_href(my.sketch_href, my.sketch_json_path);
+  }
+  if (!fs.pathExistsSync(my.sketch_json_path)) {
+    console.log('Missing', my.sketch_json_path);
+    return;
   }
   let sks = fs.readJsonSync(my.sketch_json_path);
 
@@ -89,7 +96,7 @@ function download_sh(sks, download_sh_path, unzip_sh_path) {
   // console.log('sks.length', sks.length);
   let download_lines = [];
   let unzip_lines = [];
-  unzip_lines.push(`cd "${my.downloads}/../p5projects"`);
+  unzip_lines.push(`cd "${my.downloads_path}/../p5projects"`);
   unzip_lines.push(`pwd`);
   let index = 0;
   sks.forEach((item) => {
@@ -101,7 +108,7 @@ function download_sh(sks, download_sh_path, unzip_sh_path) {
     let name = fixForFileName(item.name + '-' + id);
     download_lines.push(`echo download ${index} "${name}"`);
     download_lines.push(
-      `curl -s https://editor.p5js.org/editor/projects/${id}/zip -o "${my.downloads}/zips/${name}.zip"`
+      `curl -s https://editor.p5js.org/editor/projects/${id}/zip -o "${my.downloads_path}/zips/${name}.zip"`
     );
     unzip_sh(unzip_lines, index, name);
   });
@@ -166,15 +173,12 @@ async function read_href(sketch_href, json_path) {
     sks.sort((item1, item2) => item1.name.localeCompare(item2.name));
     fs.writeJsonSync(json_path, sks, { spaces: 2 });
   } catch (err) {
-    console.log('read_href err', err);
+    // console.log('read_href err', err);
+    console.log('read_href error sketch_href', sketch_href);
   }
   console.timeEnd('sketch read_href');
   console.log('');
 }
-
-// console.log('run start');
-run();
-// console.log('run end');
 
 //     "updatedAt": "2021-03-21T20:48:04.012Z",
 // [Ex_05_99 Robot03_Response](https://editor.p5js.org/jht1493/sketches/sWEVGT4bm)
