@@ -8,5 +8,5 @@ abs_path="$(readlink -f "$bin_path")"
 root=`pwd`
 # echo root $root
 
-node "$abs_path/../node/p5projects_index.js" --root $root "$@"
+node "$abs_path/../node/p5projects_index.js" --root "$root" "$@"
 
