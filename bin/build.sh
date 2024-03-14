@@ -14,12 +14,12 @@ root=`pwd`
 #
 dest=$abs_path/../node
 if [ ! -e "$dest/node_modules" ]; then
-  pushd $dest > /dev/null
+  pushd "$dest" > /dev/null
   npm install
   popd > /dev/null
 fi
 
-node $abs_path/../node/build.js --root $root "$@"
+node "$abs_path/../node/build.js" --root $root "$@"
 
 # prefer $() vs. back tick
 # https://chat.openai.com/c/15c2edeb-3880-470a-81de-ee94faf6cffc
