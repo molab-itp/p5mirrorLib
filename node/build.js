@@ -121,15 +121,18 @@ function download_sh(sks, download_sh_path, unzip_sh_path) {
   fs.writeFileSync(unzip_sh_path, unzip_lines.join('\n'));
 }
 
+// pushd $dest > /dev/null
+// npm install
+// popd > /dev/null
+
 function unzip_sh(unzip_lines, index, name) {
   unzip_lines.push(`#`);
   unzip_lines.push(`echo unzip ${index} "${name}"`);
-  // unzip_lines.push(`# ${name}`);
-  unzip_lines.push(`rm -rf "${name}"`);
-  unzip_lines.push(`mkdir "${name}"`);
-  unzip_lines.push(`cd "${name}"`);
+  unzip_lines.push(`rm -rf "./${name}"`);
+  unzip_lines.push(`mkdir "./${name}"`);
+  unzip_lines.push(`pushd "./${name}" > /dev/null`);
   unzip_lines.push(`unzip -q "../../downloads/zips/${name}"`);
-  unzip_lines.push(`cd ..`);
+  unzip_lines.push(`popd > /dev/null`);
 }
 
 // Keep track of duplicate names to suffix with count
