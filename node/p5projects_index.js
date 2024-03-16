@@ -34,6 +34,9 @@ function run() {
   lines.push(`# ${my.user_name} p5projects`);
   lines.push('');
   for (let afile of dfiles) {
+    if (afile.startsWith('.')) {
+      continue;
+    }
     let mfile = markDownQuote(afile);
     let efile = encodeURIComponent(afile);
     let id = extract_id(afile);
