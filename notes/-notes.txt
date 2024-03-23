@@ -1,6 +1,13 @@
 notes.txt
 
 # --
+2024-03-23 08:17:44
+
+bin/build.sh --update
+use downloads/json/last_updatedAt.txt
+to detect recent changes
+
+# --
 2024-03-08 11:02:58
 
 mirror.sh

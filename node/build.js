@@ -24,6 +24,7 @@ function my_init() {
   fs.ensureDirSync(my.p5projects_path);
 
   my.sketch_json_path = path.join(my.json_path, 'sketches.json');
+  my.sketch_updatedAt_path = path.join(my.json_path, 'last_updatedAt.txt');
 
   my.list_path = path.join(my.gen_path, 'sketches.md');
   my.list_recent_path = path.join(my.gen_path, 'sketches_recent.md');
@@ -41,6 +42,12 @@ async function run() {
   my_init();
 
   await collection_list.run(my);
+
+  let last_updatedAt = '';
+  if (my.updateFlag && fs.pathExistsSync(my.sketch_updatedAt_path)) {
+    last_updatedAt = fs.readFileSync(my.sketch_updatedAt_path) + '';
+    console.log('last_updatedAt', last_updatedAt);
+  }
 
   if (!fs.pathExistsSync(my.sketch_json_path) || my.href_read) {
     await read_href(my.sketch_href, my.sketch_json_path);
@@ -64,10 +71,23 @@ async function run() {
   sks.reverse();
   list_sketches(sks, my.list_recent_path);
 
+  // sks.forEach((item, index) => {
+  //   console.log(index, 'updatedAt', item.updatedAt);
+  // });
+
+  // Write new last_updateAt.txt
+  {
+    let last_updatedAt = '';
+    if (sks.length > 0) {
+      last_updatedAt = sks[0].updatedAt;
+    }
+    fs.writeFileSync(my.sketch_updatedAt_path, last_updatedAt);
+  }
+
   // create the download scripts in updateAt order
   // gives user a chance to prune script to only update recent changes
   //
-  download_sh(sks, my.download_sh_path, my.unzip_sh_path);
+  download_sh(sks, my.download_sh_path, my.unzip_sh_path, last_updatedAt);
 
   console.log('');
 }
@@ -91,7 +111,7 @@ function list_sketches(sks, list_path) {
   fs.writeFileSync(list_path, lines.join('\n'));
 }
 
-function download_sh(sks, download_sh_path, unzip_sh_path) {
+function download_sh(sks, download_sh_path, unzip_sh_path, last_updatedAt) {
   // console.log('sks', sks);
   // console.log('sks.length', sks.length);
   let download_lines = [];
@@ -104,6 +124,10 @@ function download_sh(sks, download_sh_path, unzip_sh_path) {
     // console.log(index, 'projectId', item.projectId);
     index++;
     if (my.limit > 0 && index > my.limit) return;
+    if (last_updatedAt && item.updatedAt <= last_updatedAt) {
+      // item too old, already downloaded
+      return;
+    }
     let id = item.id;
     let name = fixForFileName(item.name + '-' + id);
     download_lines.push(`echo download ${index} "${name}"`);

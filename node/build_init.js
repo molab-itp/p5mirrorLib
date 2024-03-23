@@ -18,14 +18,12 @@ function init(my) {
       index++;
       my.user_name = process.argv[index];
       console.log('argv user_name', my.user_name);
-      // } else if (val == '--downloads') {
-      //   index++;
-      //   my.downloads = process.argv[index];
-      //   console.log('argv downloads', my.downloads);
     } else if (val == '--limit') {
       index++;
       my.limit = parseFloat(process.argv[index]);
       console.log('argv limit', my.limit);
+    } else if (val == '--update') {
+      my.updateFlag = 1;
     }
   }
 
