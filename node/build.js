@@ -49,7 +49,7 @@ async function run() {
     console.log('last_updatedAt', last_updatedAt);
   }
 
-  if (!fs.pathExistsSync(my.sketch_json_path) || my.href_read) {
+  if (!fs.pathExistsSync(my.sketch_json_path) || !my.checkFlag) {
     await read_href(my.sketch_href, my.sketch_json_path);
   }
   if (!fs.pathExistsSync(my.sketch_json_path)) {

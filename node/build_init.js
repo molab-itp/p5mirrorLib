@@ -24,6 +24,8 @@ function init(my) {
       console.log('argv limit', my.limit);
     } else if (val == '--update') {
       my.updateFlag = 1;
+    } else if (val == '--check') {
+      my.checkFlag = 1;
     }
   }
 
