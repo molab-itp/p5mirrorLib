@@ -2,11 +2,10 @@
 const path = require('path');
 
 function init(my) {
-  // my.user_name = user_name = process.env.USER_NAME || 'jhtitp';
   my.user_name = user_name = process.env.USER_NAME || 'p5name';
-  // my.downloads = 'downloads';
   my.limit = -1;
   my.root_path = path.join(__dirname, '..');
+  my.checkFlag = 1;
 
   for (let index = 0; index < process.argv.length; index++) {
     // console.log(index, process.argv[index]);
