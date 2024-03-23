@@ -119,6 +119,7 @@ function download_sh(sks, download_sh_path, unzip_sh_path, last_updatedAt) {
   unzip_lines.push(`cd "${my.downloads_path}/../p5projects"`);
   unzip_lines.push(`pwd`);
   let index = 0;
+  let count = 0;
   sks.forEach((item) => {
     // console.log(index, 'project.name', item.project.name);
     // console.log(index, 'projectId', item.projectId);
@@ -135,6 +136,7 @@ function download_sh(sks, download_sh_path, unzip_sh_path, last_updatedAt) {
       `curl -s https://editor.p5js.org/editor/projects/${id}/zip -o "${my.downloads_path}/zips/${name}.zip"`
     );
     unzip_sh(unzip_lines, index, name);
+    count++;
   });
   download_lines.push('echo');
   unzip_lines.push(`cd ..`);
@@ -143,6 +145,10 @@ function download_sh(sks, download_sh_path, unzip_sh_path, last_updatedAt) {
   unzip_lines.push('echo');
   fs.writeFileSync(download_sh_path, download_lines.join('\n'));
   fs.writeFileSync(unzip_sh_path, unzip_lines.join('\n'));
+
+  if (my.updateFlag) {
+    console.log('download n', count);
+  }
 }
 
 // pushd $dest > /dev/null
