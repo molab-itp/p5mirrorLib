@@ -50,8 +50,7 @@ async function run() {
     console.log('last_updatedAt', last_updatedAt);
   }
 
-  console.log('my.checkFlag', my.checkFlag);
-
+  // console.log('my.checkFlag', my.checkFlag);
   if (!fs.pathExistsSync(my.sketch_json_path) || !my.checkFlag) {
     await read_href(my.sketch_href, my.sketch_json_path);
   }
