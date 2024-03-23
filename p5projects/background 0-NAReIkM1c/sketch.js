@@ -1,6 +1,6 @@
 // https://editor.p5js.org/p5name/sketches/NAReIkM1c
-// background  0
-
+// background 0 xxx
+ 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   createA('./README.txt', 'README.txt');

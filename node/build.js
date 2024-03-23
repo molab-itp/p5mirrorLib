@@ -24,7 +24,8 @@ function my_init() {
   fs.ensureDirSync(my.p5projects_path);
 
   my.sketch_json_path = path.join(my.json_path, 'sketches.json');
-  my.sketch_updatedAt_path = path.join(my.json_path, 'last_updatedAt.txt');
+  my.last_updatedAt_path = path.join(my.json_path, 'last_updatedAt.txt');
+  my.pending_updatedAt_path = path.join(my.json_path, 'pending_updatedAt.txt');
 
   my.list_path = path.join(my.gen_path, 'sketches.md');
   my.list_recent_path = path.join(my.gen_path, 'sketches_recent.md');
@@ -44,8 +45,8 @@ async function run() {
   await collection_list.run(my);
 
   let last_updatedAt = '';
-  if (my.updateFlag && fs.pathExistsSync(my.sketch_updatedAt_path)) {
-    last_updatedAt = fs.readFileSync(my.sketch_updatedAt_path) + '';
+  if (my.updateFlag && fs.pathExistsSync(my.last_updatedAt_path)) {
+    last_updatedAt = fs.readFileSync(my.last_updatedAt_path) + '';
     console.log('last_updatedAt', last_updatedAt);
   }
 
@@ -75,14 +76,12 @@ async function run() {
   //   console.log(index, 'updatedAt', item.updatedAt);
   // });
 
-  // Write new last_updateAt.txt
-  {
-    let last_updatedAt = '';
-    if (sks.length > 0) {
-      last_updatedAt = sks[0].updatedAt;
-    }
-    fs.writeFileSync(my.sketch_updatedAt_path, last_updatedAt);
+  // Write new pending_updateAt.txt
+  let pending_updateAt = '';
+  if (sks.length > 0) {
+    pending_updateAt = sks[0].updatedAt;
   }
+  fs.writeFileSync(my.pending_updatedAt_path, pending_updateAt);
 
   // create the download scripts in updateAt order
   // gives user a chance to prune script to only update recent changes
@@ -139,9 +138,16 @@ function download_sh(sks, download_sh_path, unzip_sh_path, last_updatedAt) {
     count++;
   });
   download_lines.push('echo');
-  unzip_lines.push(`cd ..`);
-  unzip_lines.push(`# remove redundant p5.js p5.sound.min.js`);
-  unzip_lines.push(`rm -f p5projects/*/p5.*`);
+  unzip_lines.push(`
+cd ..
+# remove redundant p5.js p5.sound.min.js
+rm -f p5projects/*/p5.*
+# sync last_updatedAt.txt
+cd downloads/json
+if [ -e pending_updatedAt.txt ]; then
+  rm -f last_updatedAt.txt
+  mv pending_updatedAt.txt last_updatedAt.txt
+fi`);
   unzip_lines.push('echo');
   fs.writeFileSync(download_sh_path, download_lines.join('\n'));
   fs.writeFileSync(unzip_sh_path, unzip_lines.join('\n'));
