@@ -10,10 +10,11 @@ function init(my) {
 }
 
 async function run(my) {
+  //
   init(my);
 
-  if (!fs.pathExistsSync(my.cl.json_path) || my.href_read) {
-    await read_href(my.cl.collection_href, my.cl.json_path);
+  if (!fs.pathExistsSync(my.cl.json_path) || my.latestFlag) {
+    await read_href(my, my.cl.collection_href, my.cl.json_path);
   }
   if (!fs.pathExistsSync(my.cl.json_path)) {
     console.log('Missing', my.cl.json_path);
@@ -66,21 +67,27 @@ function cols_item_as_links(my, col, lines) {
   });
 }
 
-async function read_href(collection_href, json_path) {
-  console.log('');
-  console.time('collection read_href');
+async function read_href(my, collection_href, json_path) {
+  if (my.verboseFlag) {
+    console.log('');
+    console.time('collection read_href');
+  }
   try {
     const response = await axios.get(collection_href);
     const cols = response.data;
-    console.log('collection n', cols.length);
+    if (my.verboseFlag) {
+      console.log('collection n', cols.length);
+    }
     cols.sort((item1, item2) => item1.name.localeCompare(item2.name));
     fs.writeJsonSync(json_path, cols, { spaces: 2 });
   } catch (err) {
     // console.log('collection read_href err', err);
     console.log('collection read_href error collection_href', collection_href);
   }
-  console.timeEnd('collection read_href');
-  console.log('');
+  if (my.verboseFlag) {
+    console.timeEnd('collection read_href');
+    console.log('');
+  }
 }
 
 // run();

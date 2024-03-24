@@ -29,10 +29,11 @@ function run() {
 
   let dfiles = fs.readdirSync(my.p5projects_path);
   // console.log('dfiles', dfiles);
-  console.log('dfiles n', dfiles.length);
+  // console.log('dfiles n', dfiles.length);
   let lines = [];
   lines.push(`# ${my.user_name} p5projects`);
   lines.push('');
+  let count = 0;
   for (let afile of dfiles) {
     if (afile.startsWith('.')) {
       continue;
@@ -49,7 +50,9 @@ function run() {
     // console.log('id', id);
     let p5js = `[p5js](https://editor.p5js.org/${my.user_name}/sketches/${id})`;
     lines.push(`- [${mfile}](./p5projects/${efile}) \[${p5js}\]`);
+    count++;
   }
+  console.log('indexed n', count);
   console.log('');
 
   fs.writeFileSync(my.p5projects_index_path, lines.join('\n'));

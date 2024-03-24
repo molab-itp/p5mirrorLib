@@ -4,7 +4,7 @@
 
 # prompt to prevent accidental delete
 
-read -p "Enter y to remove derived files: " response
+read -p "Enter y to remove all derived files: " response
 if [[ "$response" != "y" ]]; then
   exit 0 
 fi
