@@ -13,37 +13,15 @@ init(my);
 run();
 // console.log('run end');
 
-function my_init() {
-  my.gen_path = path.join(my.downloads_path, 'gen');
-  my.zips_path = path.join(my.downloads_path, 'zips');
-  my.json_path = path.join(my.downloads_path, 'json');
-
-  fs.ensureDirSync(my.gen_path);
-  fs.ensureDirSync(my.zips_path);
-  fs.ensureDirSync(my.json_path);
-  fs.ensureDirSync(my.p5projects_path);
-
-  my.sketch_json_path = path.join(my.json_path, 'sketches.json');
-  my.last_updatedAt_path = path.join(my.json_path, 'last_updatedAt.txt');
-  my.pending_updatedAt_path = path.join(my.json_path, 'pending_updatedAt.txt');
-
-  my.list_path = path.join(my.gen_path, 'sketches.md');
-  my.list_recent_path = path.join(my.gen_path, 'sketches_recent.md');
-  my.download_sh_path = path.join(my.gen_path, 'download.sh');
-  my.unzip_sh_path = path.join(my.gen_path, 'unzip.sh');
-
-  my.sketch_href = `https://editor.p5js.org/editor/${my.user_name}/projects`;
-}
-
 async function run() {
   //
-  my_init();
+  // my_init();
 
-  let last_updatedAt = '';
-  if (my.updateFlag && fs.pathExistsSync(my.last_updatedAt_path)) {
-    last_updatedAt = fs.readFileSync(my.last_updatedAt_path) + '';
-    // console.log('last_updatedAt', last_updatedAt);
-  }
+  // let last_updatedAt = '';
+  // if (my.updateFlag && fs.pathExistsSync(my.last_updatedAt_path)) {
+  //   last_updatedAt = fs.readFileSync(my.last_updatedAt_path) + '';
+  //   // console.log('last_updatedAt', last_updatedAt);
+  // }
 
   await collection_list.run(my);
 
@@ -84,7 +62,7 @@ async function run() {
   // create the download scripts in updateAt order
   // gives user a chance to prune script to only update recent changes
   //
-  download_sh(sks, my.download_sh_path, my.unzip_sh_path, last_updatedAt);
+  download_sh(sks, my.download_sh_path, my.unzip_sh_path, my.last_updatedAt);
 
   // console.log('');
 }

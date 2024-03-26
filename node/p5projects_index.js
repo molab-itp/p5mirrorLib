@@ -54,6 +54,8 @@ function run() {
   }
   console.log('indexed n', count);
   console.log('');
+  let stats = `${count} sketches ${my.last_updatedAt}`;
+  lines.splice(1, 0, stats);
 
   fs.writeFileSync(my.p5projects_index_path, lines.join('\n'));
 }
