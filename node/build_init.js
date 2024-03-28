@@ -9,6 +9,7 @@ function init(my) {
   my.latestFlag = 1;
   my.updateFlag = 1;
   my.verboseFlag = 0;
+  my.cleanFlag = 0;
 
   for (let index = 0; index < process.argv.length; index++) {
     // console.log(index, process.argv[index]);
@@ -28,6 +29,8 @@ function init(my) {
       my.updateFlag = 0;
     } else if (val == '--current') {
       my.latestFlag = 0;
+    } else if (val == '--clean') {
+      my.cleanFlag = 1;
     } else if (val == '--verbose') {
       my.verboseFlag = 1;
     }

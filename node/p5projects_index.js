@@ -28,7 +28,9 @@ function run() {
     return;
   }
 
+  // if (my.cleanFlag) {
   remove_unreferenced();
+  // }
 
   let dfiles = fs.readdirSync(my.p5projects_path);
   // console.log('dfiles', dfiles);
@@ -89,8 +91,12 @@ function remove_unreferenced() {
     let present = sks_dict[afile];
     let pfile = path.join(my.p5projects_path, afile);
     if (!present) {
-      console.log('removing', pfile);
-      fs.removeSync(pfile);
+      if (my.cleanFlag) {
+        console.log('removing', pfile);
+        fs.removeSync(pfile);
+      } else {
+        console.log('unreferenced', pfile);
+      }
     } else {
       // console.log('present', pfile);
     }
