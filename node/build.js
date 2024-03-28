@@ -5,6 +5,7 @@ const axios = require('axios');
 const collection_list = require('./collection_list');
 const { init } = require('./build_init');
 const { markDownQuote } = require('./markDownQuote');
+const { fixForFileName } = require('./fixForFileName');
 
 let my = {};
 
@@ -151,25 +152,6 @@ function unzip_sh(unzip_lines, index, name) {
   unzip_lines.push(`pushd "./${name}" > /dev/null`);
   unzip_lines.push(`unzip -q "../../downloads/zips/${name}"`);
   unzip_lines.push(`popd > /dev/null`);
-}
-
-// Keep track of duplicate names to suffix with count
-let counts = {};
-
-function fixForFileName(str) {
-  // Map chars not happy in file name to ''
-  str = str.replace(/[\/\\:*?"<>\{\}]/g, '');
-  // compress multiple consecutive - or space to single
-  str = str.replace(/\-+/g, '-');
-  str = str.replace(/ +/g, ' ');
-  let count = counts[str];
-  if (!count) {
-    counts[str] = 1;
-    return str;
-  }
-  let nstr = str + '-' + count;
-  counts[str] = count + 1;
-  return nstr;
 }
 
 // cd ..

@@ -4,6 +4,7 @@ const path = require('path');
 
 const { init } = require('./build_init');
 const { markDownQuote } = require('./markDownQuote');
+const { fixForFileName } = require('./fixForFileName');
 
 let my = {};
 init(my);
@@ -26,6 +27,8 @@ function run() {
     console.log('no folder', my.p5projects_path);
     return;
   }
+
+  remove_unreferenced();
 
   let dfiles = fs.readdirSync(my.p5projects_path);
   // console.log('dfiles', dfiles);
@@ -63,4 +66,33 @@ function run() {
 function extract_id(link) {
   // substring(indexStart, indexEnd)
   return link.substring(link.length - 9);
+}
+
+function remove_unreferenced() {
+  let sks = [];
+  if (fs.pathExistsSync(my.sketch_json_path)) {
+    sks = fs.readJsonSync(my.sketch_json_path);
+  }
+  // Create dictionary of all sketches by filename
+  let sks_dict = {};
+  sks.forEach((item) => {
+    let name = fixForFileName(item.name + '-' + item.id);
+    sks_dict[name] = 1;
+  });
+  // remove sketches not present in sks_dict
+  //
+  let dfiles = fs.readdirSync(my.p5projects_path);
+  for (let afile of dfiles) {
+    if (afile.startsWith('.')) {
+      continue;
+    }
+    let present = sks_dict[afile];
+    let pfile = path.join(my.p5projects_path, afile);
+    if (!present) {
+      console.log('removing', pfile);
+      fs.removeSync(pfile);
+    } else {
+      // console.log('present', pfile);
+    }
+  }
 }
