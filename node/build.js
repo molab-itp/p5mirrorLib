@@ -1,5 +1,4 @@
 const fs = require('fs-extra');
-const path = require('path');
 const axios = require('axios');
 
 const collection_list = require('./collection_list');
