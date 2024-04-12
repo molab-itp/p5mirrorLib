@@ -2,7 +2,7 @@
   "name": "nod",
   "version": "1.0.0",
   "description": "",
-  "main": "asketches_list.js.js",
+  "main": "build.js",
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
