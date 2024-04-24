@@ -1,49 +1,79 @@
-# [p5mirrorLib](https://github.com/molab-itp/p5mirrorLib.git)
+# [github p5mirrorLib](https://github.com/molab-itp/p5mirrorLib.git)
+
+# Mirror
+
+- mirror your editor.p5js sketches in local repo
+- implementation notes [notes/a-mirror-notes.txt](./notes/a-mirror-notes.txt)
+
+```
+# download, unzip, and generate index for a editor.p5js user p5name
+
+bin/mirror.sh --user p5name
+
+```
 
 ## Generated files
 
 - [p5projects-index](./p5projects-index.md)
 
-### Listings
+## Listings
 
 - [downloads/gen/sketches_recent.md](./downloads/gen/sketches_recent.md)
 - [downloads/gen/sketches.md](./downloads/gen/sketches.md)
 - [downloads/gen/collections.md](./downloads/gen/collections.md)
 
-## Scripts
+# import
 
 ```
-
-# download, unzip, and generate index
 #
-bin/mirror.sh --user p5name
+# download html,js,css AND media files to destination folder
+#
+# args: sketchID destination
+#
+bin/import.sh COK08srwr "source/My sketch"
+```
 
-# download projects newer than downloads/json/last_updatedAt.txt
-bin/build.sh --user p5name
+# CRUD
 
-# limit to the n most recent projects
-bin/build.sh --user p5name --limit 1
+- create-read-update-delete
+- scripts to CRUD your editor.p5js account content!
+- implementation notes [notes/a-crud-test.txt](./notes/a-crud-test.txt)
 
-# gen scripts to download all projects
-bin/build.sh --user p5name --full
+```
+# add to .gitignore
+.env
+downloads
+p5mirrorLib
 
-# gen scripts to download current listing
-# in downloads/json/sketches.json
-bin/build.sh --user p5name --current
+# create .env file with credentials
+# requires email signin
+# github and google signin currently NOT supported
+# eg.
+nano .env
+P5_USER=p5moLab
+P5_EMAIL=p5moLab@gmail.com
+P5_PASSWORD=XXXXXXXXX
 
-# download the projects
-sh downloads/gen/download.sh
+# P5_EMAIL & P5_PASSWORD require to sign in to editor.p5js
+#
 
-# unzip the projects
-sh downloads/gen/unzip.sh
+git clone https://github.com/molab-itp/p5mirrorLib.git p5mirrorLib
 
-# generate markdown index of projects
-bin/p5projects-index.sh --user p5name
+# crud ops
 
-# remove all derived files
-bin/z-clean.sh
+alias crud=./p5mirrorLib/bin/crud.sh
 
-# display extra info for debugging
-# --verbose
+crud export_new --folder "examples" --all
+
+crud export_update --all
+
+crud list
+
+crud watermark --all
+
+crud delete --sketch XXXXXX
+
+crud delete --all
+
 
 ```

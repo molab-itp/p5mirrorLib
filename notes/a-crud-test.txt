@@ -1,0 +1,100 @@
+a-crud-test.txt
+
+# - create-read-update-delete
+# - nodejs scripts to CRUD your p5 editor site account content!
+
+cd crud
+
+# do once to install nodejs packages
+npm install
+
+# create .env file with credentials
+# requires email signin
+# github and google signin currently NOT supported
+# eg.
+nano .env
+P5_USER=p5moLab
+P5_EMAIL=p5moLab@gmail.com
+P5_PASSWORD=XXXXXXXXX
+
+# create a new sketch
+#
+node a/new.js 
+newProject content.id H50oU4N6K
+
+# list sketch id and sketch name 
+#
+node a/list.js 
+H50oU4N6K 2024-04-16 black
+
+# export a sketch from p5 editor site to local sketch folder
+#
+node a/export_new.js --folder "source/MazeSpin-subs" --name "MazeSpin-subs-n"
+
+# bring sketch on p5 editor site up to date with local sketch folder
+#
+node a/export_update.js --folder "source/MazeSpin-subs"  --name "MazeSpin-subs-n" --sketch COK08srwr
+
+# delete a sketch from p5 editor site 
+#
+node a/delete.js --sketch H50oU4N6K
+
+# --
+
+#
+# low level testing
+#
+
+# list sketch id's only, no name
+node a/list.js --id
+
+# read a sketch to downloads/json/OJOqFi3Rn.json
+node a/read.js --sketch H50oU4N6K
+
+# update sketch with a watermark
+node a/watermark.js --sketch H50oU4N6K
+
+# read again to see updates
+node a/read.js --sketch H50oU4N6K
+
+# expand a sketch to downloads/sketches/H50oU4N6K
+node a/expand.js --sketch H50oU4N6K
+
+# create a new sketch from "source/Equilateral Tri"
+node a/export_new.js --folder "Equilateral Tri"
+node a/export_new.js --folder "MazeSpin"
+
+# delete sketches
+node a/delete.js --sketch H50oU4N6K
+node a/delete.js --sketch qjYaJuTl6
+node a/delete.js --sketch nFuXZi_a9
+
+node a/add_file.js  --sketch gi5q3UnJD --file sub/sub3/SpiralWalker2.js
+node a/read.js --sketch gi5q3UnJD
+node a/delete_file.js  --sketch gi5q3UnJD --file sub/sub3/SpiralWalker2.js
+
+node a/read.js --sketch H50oU4N6K
+node a/expand.js --sketch H50oU4N6K
+
+node a/export_new.js --folder "MazeSpin-subs"
+node a/read.js --sketch H50oU4N6K
+node a/watermark.js --sketch H50oU4N6K
+
+# import a sketch from server and write to source folder
+node a/import.js --folder "MazeSpin-subs2" --sketch COK08srwr
+
+# add one file
+node a/add_file.js  --sketch H50oU4N6K --file index.html
+
+# delete one file
+node a/delete_file.js  --sketch H50oU4N6K --file index.html
+
+node a/test.js  --sketch H50oU4N6K
+
+# --
+# respect the right to be forgotten
+#
+# !!@ danger !!@ danger !!@ danger
+# !!@ -- delete all sketches -- !!@
+#
+node a/delete.js --sketches $(node a/list.js --id)

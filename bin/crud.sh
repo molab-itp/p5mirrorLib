@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# build the scripts needed to download your p5 editor sketches
+# crud.sh list
 
 # echo bin-path ${0%/*}
 bin_path="${0%/*}"
@@ -10,16 +10,15 @@ root=`pwd`
 # echo root $root
 # exit
 
+home=crud
 # Install npm if needed for node build scripts
 #
-dest=$abs_path/../node
+dest=$abs_path/../$home
 if [ ! -e "$dest/node_modules" ]; then
   pushd "$dest" > /dev/null
   npm install
   popd > /dev/null
 fi
 
-node "$abs_path/../node/build.js" --root "$root" "$@"
+node "$abs_path/../$home/a/$1.js" --root "$root" "$@"
 
-# prefer $() vs. back tick
-# https://chat.openai.com/c/15c2edeb-3880-470a-81de-ee94faf6cffc

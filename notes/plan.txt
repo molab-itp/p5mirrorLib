@@ -1,19 +1,46 @@
 plan.txt
 
+
+# --
+
+
+
+[] add --verbose flag check
+
+[] log output path
+  node a/expand.js --sketch VohRuPvmF
+
+[] delete related files
+  node a/delete.js --sketch nWGaRYJfK
+  downloads/json/nWGaRYJfK.json
+  downloads/sketches/nWGaRYJfK
+
+[] on update, read if no json
+
+[] ?? p5projects --> p5sketches
+
 # -- 
 
 https://github.com/processing/p5.js-web-editor/discussions/2671
 Integration with git #2671
 
-
 # -- 
-
 
 https://github.com/jht1493/p5mirror-jht1493
 https://github.com/jht9629-gmail/p5mirror-jht9629-gmail
 https://github.com/jht9629-nyu/p5mirror-jht9629-nyu
 
 https://github.com/jhtitp/p5mirror-jhtitp
+
+# --
+[x] import --folder 
+  node a/import.js --folder "MazeSpin-subs" --sketch Fovt_UVbT
+
+[x] summary docs
+
+[x] invite Peter - Ziyuan Lin to repo
+
+[x] argv for email, password, user_name
 
 # -- 
 
@@ -25,4 +52,3 @@ https://github.com/jhtitp/p5mirror-jhtitp
   enumerate files in p5projects
   p5projects-index.md
 
-# --

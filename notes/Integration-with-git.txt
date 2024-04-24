@@ -1,5 +1,18 @@
 Integration-with-git.txt
 
+# --
+
+https://github.com/processing/p5.js-web-editor/blob/develop/contributor_docs/public_api.md
+Public API - This API provides a way to programmatically import data into the p5.js Web Editor.
+
+https://github.com/processing/p5.js-web-editor/issues/91
++ Adding Test Coverage
+
+https://github.com/processing/p5.js-web-editor/wiki/Project-List
+Project List - raclim edited this page on Feb 6, 2023 · 11 revisions
+
+# --
+
 https://github.com/processing/p5.js-web-editor/discussions/2671
 Integration with git #2671
 
