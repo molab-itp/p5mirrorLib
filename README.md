@@ -1,5 +1,10 @@
 # [github p5mirrorLib](https://github.com/molab-itp/p5mirrorLib.git)
 
+- this repo contains the nodejs scripts to support
+- [p5mirror](https://github.com/molab-itp/p5mirror)
+  I recommend you fork p5mirror and use it to quickly created a git repo backup of your editor.p5js sketches.
+- Use this repo directly to keep your sketches in sync with editor.p5js account.
+
 # Mirror
 
 - mirror your editor.p5js sketches in local repo
