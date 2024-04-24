@@ -35,12 +35,17 @@ bin/import.sh COK08srwr "source/My sketch"
 
 # CRUD
 
+## CRUD setup
+
 - create-read-update-delete
 - scripts to CRUD your editor.p5js account content!
 - implementation notes [notes/a-crud-test.txt](./notes/a-crud-test.txt)
 
 ```
-# add to .gitignore
+
+# assuming you are in the directory/repo for you sketches
+#
+# add to .gitignore of your repo
 .env
 downloads
 p5mirrorLib
@@ -48,7 +53,7 @@ p5mirrorLib
 # create .env file with credentials
 # requires email signin
 # github and google signin currently NOT supported
-# eg.
+#
 nano .env
 P5_USER=p5moLab
 P5_EMAIL=p5moLab@gmail.com
@@ -57,22 +62,60 @@ P5_PASSWORD=XXXXXXXXX
 # P5_EMAIL & P5_PASSWORD require to sign in to editor.p5js
 #
 
+# clone this repository
+#
 git clone https://github.com/molab-itp/p5mirrorLib.git p5mirrorLib
 
-# crud ops
-
+# create alias the crud tool
+#
 alias crud=./p5mirrorLib/bin/crud.sh
 
+# export all the sketches in examples folder to your editor.p5js account
+# new sketches are created for each folder in examples
+#
 crud export_new --folder "examples" --all
 
+# update all the sketches in examples folder to your editor.p5js account
+#
 crud export_update --all
 
+# show a list of all your sketches
+#
 crud list
 
+```
+
+## CRUD details
+
+```
+
+# create a sketch for the contents of folder examples/My sketch
+#
+crud export_new --folder "examples/My sketch"
+
+# update a sketch for the contents of folder "examples/My sketch"
+# sketch id XXXXXX
+#
+crud export_update --folder "examples/My sketch" --sketch XXXXXXX
+
+# add watermake comment to all sketches
+# first two lines of sketch.js
+#
+# // https://editor.p5js.org/p5name/sketches/XXXXXXX
+# // My sketch
+#
 crud watermark --all
 
+# delete a sketch with id XXXXXX
+#
 crud delete --sketch XXXXXX
 
+# --
+# respect the right to be forgotten
+#
+# !!@ danger !!@ danger !!@ danger
+# !!@ delete all yhour sketches !!@
+#
 crud delete --all
 
 
