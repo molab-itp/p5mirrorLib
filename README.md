@@ -35,11 +35,13 @@ bin/import.sh COK08srwr "source/My sketch"
 
 # CRUD
 
-## CRUD setup
-
 - create-read-update-delete
 - scripts to CRUD your editor.p5js account content!
-- implementation notes [notes/a-crud-test.txt](./notes/a-crud-test.txt)
+- only files supported: .html, .js, .css
+- editor.p5js account must be email sign on mode
+- media files must be uploaded manually
+
+## CRUD setup
 
 ```
 
@@ -88,7 +90,6 @@ crud list
 ## CRUD details
 
 ```
-
 # create a sketch for the contents of folder examples/My sketch
 #
 crud export_new --folder "examples/My sketch"
@@ -117,6 +118,6 @@ crud delete --sketch XXXXXX
 # !!@ delete all yhour sketches !!@
 #
 crud delete --all
-
-
 ```
+
+- implementation notes [notes/a-crud-test.txt](./notes/a-crud-test.txt)
