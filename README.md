@@ -99,7 +99,7 @@ crud export_new --folder "examples/My sketch"
 #
 crud export_update --folder "examples/My sketch" --sketch XXXXXXX
 
-# add watermake comment to all sketches
+# add watermark comment to all sketches
 # first two lines of sketch.js
 #
 # // https://editor.p5js.org/p5name/sketches/XXXXXXX
