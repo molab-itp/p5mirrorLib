@@ -36,7 +36,7 @@ export function sketchId_flush(my) {
   let map = my.sketchId_map;
   if (!map) return;
   // console.log('sketchId_flush map', map);
-  console.log('sketchId_flush map.dirty', map.dirty);
+  // console.log('sketchId_flush map.dirty', map.dirty);
   if (map.dirty) {
     delete map.dirty;
     fs.writeJsonSync(my.sketch_id_map_path, map, { spaces: 2 });
