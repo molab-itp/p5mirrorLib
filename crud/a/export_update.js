@@ -76,12 +76,14 @@ export async function export_update(my, projectId, source_folder) {
   //
   let deletes = [];
   for (let item of project.items) {
-    if (item.file.fileType != 'file') {
+    let file = item.file;
+
+    if (file.fileType != 'file') {
       continue;
     }
-    if (!isSourceFileType(item.file.name)) {
+    if (!isSourceFileType(file.name)) {
       // non source files .html, .js, .css
-      console.log('export_update skipping', item.file.name);
+      console.log('export_update skipping', file.name);
       continue;
     }
     // console.log('item.filePath', item.filePath);
@@ -91,7 +93,7 @@ export async function export_update(my, projectId, source_folder) {
     if (!node) {
       // not in next, mark for deletion
       console.log('no node item.filePath', item.filePath);
-      if (item.file.fileType == 'file') {
+      if (file.fileType == 'file') {
         deletes.push(item);
       }
       continue;
@@ -99,14 +101,15 @@ export async function export_update(my, projectId, source_folder) {
     let cpath = path.join(spath, node.filePath);
     let content = fs.readFileSync(cpath) + '';
 
-    if (item.file.content != content) {
+    if (file.content != content) {
       if (my.verboseFlag) {
         console.log('export_update update item.filePath', item.filePath);
       }
     }
-    item.file.content = content;
-    item.file.createdAt = date_s;
-    item.file.updatedAt = date_s;
+    file.content = content;
+    file.createdAt = date_s;
+    file.updatedAt = date_s;
+    file.isSelectedFile = file.name == 'sketch.js' || file.name == 'a_sketch.js';
     node.updated = 1;
   }
 
