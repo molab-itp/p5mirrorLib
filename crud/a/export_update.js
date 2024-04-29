@@ -14,7 +14,7 @@ import { project_load } from '../lib/project.js';
 import { fileNodes, isSourceFileType } from '../lib/fileNodes.js';
 import { update_project } from '../lib/update_project.js';
 import { add_payLoad, add_file } from '../lib/add_file.js';
-import { arg_sketches } from '../init/arg_sketches.js';
+import { sketches_list } from '../init/sketches_list.js';
 import { sketchId_setFolder, sketchId_getFolder, sketchId_flush } from '../lib/sketchId_map.js';
 
 let my = {};
@@ -24,10 +24,10 @@ async function main() {
   await login(my);
 
   if (my.arg_sketch && my.arg_folder) {
-    sketchId_setFolder(my, my.arg_sketch, my.arg_folder);
+    sketchId_setFolder(my, my.arg_sketch, my.arg_folder, my.arg_name);
   }
-
-  let list = await arg_sketches(my, 'export_update', { ask: 1 });
+  let remote = my.arg_remote;
+  let list = await sketches_list(my, 'export_update', { ask: 1, remote });
 
   for (let item of list) {
     //
@@ -46,7 +46,7 @@ async function main() {
     // read back project json to verify changes
     await read_project(my, item.id);
 
-    sketchId_setFolder(my, item.id, source_folder);
+    sketchId_setFolder(my, item.id, source_folder, item.name);
   }
 
   sketchId_flush(my);

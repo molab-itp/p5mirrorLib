@@ -38,6 +38,8 @@ export function init_argv(my) {
       my.idFlag = 1;
     } else if (val == '--all') {
       my.allFlag = 1;
+    } else if (val == '--remote') {
+      my.arg_remote = 1;
     } else if (val == '--name') {
       index++;
       my.arg_name = process.argv[index];

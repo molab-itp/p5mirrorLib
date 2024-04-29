@@ -5,42 +5,49 @@ import path from 'path';
 
 import { list_projects } from '../lib/read_project.js';
 import { fileNodes } from '../lib/fileNodes.js';
+import { sketchId_map } from '../lib/sketchId_map.js';
 
-export async function arg_sketches(my, label, options) {
+// options = { ask, folder, remote }
+export async function sketches_list(my, label, options) {
   options = options || {};
-  let ask = options.ask;
-  let folder = options.folder;
-  //
   let list = [];
   if (my.allFlag) {
     //
-    if (folder) {
-      list = list_folder(my, folder);
-    } else {
+    if (options.folder) {
+      list = list_folder(my, options.folder);
+    } else if (options.remote) {
       list = await list_projects(my);
+    } else {
+      list = list_sketches(my);
     }
-    if (ask) {
+    if (options.ask) {
       list = all_check(my, list, label);
     }
     //
   } else if (my.arg_sketches) {
     //
-    list = my.arg_sketches.map((item) => {
-      return { id: item };
+    list = my.arg_sketches.map((id) => {
+      return { id };
     });
     //
   } else if (my.arg_sketch) {
     //
     list = [{ id: my.arg_sketch }];
     //
-  } else if (folder) {
-    list = [my.source_folder];
+  } else if (options.folder) {
+    //
+    list = [{ folder: my.source_folder }];
   } else {
     //
-    console.log('arg_sketches no --sketch, --sketches, or --all');
+    console.log('sketches_list no --sketch, --sketches, or --all');
   }
-  // console.log('arg_sketches list', list);
+  // console.log('sketches_list list', list);
   return list;
+}
+
+function list_sketches(my) {
+  let map = sketchId_map(my);
+  return Object.values(map.items);
 }
 
 function list_folder(my, folder) {
@@ -48,7 +55,7 @@ function list_folder(my, folder) {
   list = list.flatMap((item) => {
     if (!item.parent) return [];
     let npath = path.join(folder, item.filePath);
-    return [npath];
+    return [{ folder: npath }];
   });
   return list;
 }
@@ -64,10 +71,10 @@ async function all_check(my, list, label) {
     rl.question(`${label} n=${list.length} yes or no: `, (answer) => {
       rl.close();
       if (answer == 'yes') {
-        console.log(`Performing ${list.length} ${label}`);
+        console.log(`\nPerforming ${list.length} ${label}`);
         resolve(list);
       } else {
-        console.log(`Cancelled ${label}`);
+        console.log(`\nCancelled ${label}`);
         resolve([]);
       }
     });

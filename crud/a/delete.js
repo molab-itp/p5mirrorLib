@@ -6,7 +6,7 @@
 import fetch from 'node-fetch';
 
 import { login } from '../lib/login.js';
-import { arg_sketches } from '../init/arg_sketches.js';
+import { sketches_list } from '../init/sketches_list.js';
 import { sketchId_delete, sketchId_flush } from '../lib/sketchId_map.js';
 
 let my = {};
@@ -15,7 +15,8 @@ async function main() {
   //
   await login(my);
 
-  let list = await arg_sketches(my, 'delete', { ask: 1 });
+  let remote = my.arg_remote;
+  let list = await sketches_list(my, 'delete', { ask: 1, remote });
   // console.log('delete list ', list);
 
   for (let item of list) {
@@ -30,6 +31,7 @@ async function main() {
 
 async function deleteProject(sketchId) {
   //
+  // let url = `https://editor.p5js.org/editor/${my.user_name}/projects/${sketchId}`;
   let url = `https://editor.p5js.org/editor/projects/${sketchId}`;
   const res = await fetch(url, {
     method: 'DELETE',

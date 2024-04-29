@@ -2,11 +2,17 @@
 
 import fs from 'fs-extra';
 
-export function sketchId_setFolder(my, id, folder) {
+export function sketchId_setFolder(my, id, folder, name) {
   // console.log('sketchId_setFolder id', id, 'folder', folder);
-  let map = sketchId_map(my);
   let updatedAt = new Date().toISOString();
-  map.items[id] = { id, folder, updatedAt };
+  let map = sketchId_map(my);
+  let entry = map.items[id];
+  if (!entry) {
+    entry = { id, folder, updatedAt };
+  }
+  entry.folder = folder;
+  if (name) entry.name = name;
+  map.items[id] = entry;
   map.dirty = 1;
 }
 
@@ -22,7 +28,7 @@ export function sketchId_entry(my, id) {
   return ent;
 }
 
-function sketchId_map(my) {
+export function sketchId_map(my) {
   if (!my.sketchId_map) {
     my.sketchId_map = { items: {} };
     if (fs.existsSync(my.sketch_id_map_path)) {

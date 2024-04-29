@@ -14,7 +14,7 @@
 // import fs from 'fs-extra';
 
 import { login } from '../lib/login.js';
-import { arg_sketches } from '../init/arg_sketches.js';
+import { sketches_list } from '../init/sketches_list.js';
 import { read_project } from '../lib/read_project.js';
 import { update_project } from '../lib/update_project.js';
 
@@ -22,16 +22,22 @@ let my = {};
 
 async function main() {
   await login(my);
-
-  let list = await arg_sketches(my, 'watermark');
+  let remote = my.arg_remote;
+  let list = await sketches_list(my, 'watermark', { ask: 1, remote });
+  // console.log('watermark list', list);
 
   for (let item of list) {
     //
     let payLoad = await read_project(my, item.id);
-
+    if (!payLoad) {
+      console.log('watermark missing id', item.id);
+      continue;
+    }
     modify_payLoad(payLoad);
 
     await update_project(my, payLoad);
+
+    console.log('watermark id', item.id, 'name', item.name);
   }
 }
 

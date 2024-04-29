@@ -12,7 +12,7 @@ import { login } from '../lib/login.js';
 import { expand_sketchId } from '../lib/expand_sketchId.js';
 import { read_project } from '../lib/read_project.js';
 import { fileNodes, isSourceFileType, sourceName } from '../lib/fileNodes.js';
-import { arg_sketches } from '../init/arg_sketches.js';
+import { sketches_list } from '../init/sketches_list.js';
 import { sketchId_setFolder, sketchId_flush } from '../lib/sketchId_map.js';
 
 let my = {};
@@ -21,13 +21,13 @@ async function main() {
   //
   await login(my);
 
-  let list = await arg_sketches(my, 'export_new', { ask: 1, folder: my.source_folder });
+  let list = await sketches_list(my, 'export_new', { ask: 1, folder: my.source_folder });
 
-  for (let source_folder of list) {
+  for (let item of list) {
     //
-    console.log('export_new source_folder', source_folder);
+    console.log('export_new item.folder', item.folder);
 
-    await export_new(my, source_folder);
+    await export_new(my, item.folder);
   }
 
   sketchId_flush(my);
@@ -48,7 +48,7 @@ async function export_new(my, source_folder) {
 
   expand_sketchId(my, projectId);
 
-  sketchId_setFolder(my, projectId, source_folder);
+  sketchId_setFolder(my, projectId, source_folder, my.payLoad.name);
 }
 
 function fresh_project(file_nodes, source_folder) {

@@ -86,9 +86,13 @@ crud export_new --folder "examples" --all
 #
 crud export_update --all
 
-# show a list of all your sketches
+# show a list of all sketches created via export_new
 #
 crud list
+
+# show a list of all your sketches
+#
+crud list --remote
 
 ```
 
@@ -122,7 +126,13 @@ crud delete --sketch XXXXXX
 # !!@ danger !!@ danger !!@ danger
 # !!@ delete all yhour sketches !!@
 #
+# delete all sketches created via export_new
+#
 crud delete --all
+
+# delete all sketches from the listing in your editor.p5js account
+#
+crud delete --all --remote
 ```
 
 - implementation notes [notes/a-crud-test.txt](./notes/a-crud-test.txt)
