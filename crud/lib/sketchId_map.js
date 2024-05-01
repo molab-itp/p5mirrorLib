@@ -52,7 +52,7 @@ export function sketchId_flush(my) {
 export function sketchId_delete(my, id) {
   let ent = sketchId_entry(my, id);
   if (!ent) {
-    console.log('sketchId_delete no id', id);
+    // console.log('sketchId_delete no id', id);
     return;
   }
   delete my.sketchId_map.items[id];
