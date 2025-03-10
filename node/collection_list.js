@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const axios = require('axios');
+const { markDownQuote } = require('./markDownQuote');
 
 function init(my) {
   my.cl = {};
@@ -48,7 +49,9 @@ function cols_as_links(my, cols, lines) {
 function cols_item_as_links(my, col, lines) {
   // console.log('col', col);
   lines.push('');
-  lines.push('# ' + col.name);
+  // lines.push('# ' + col.name);
+  let id = col.id;
+  lines.push(`[${col.name}](https://editor.p5js.org/${my.user_name}/collections/${id})`);
   // console.log('# ' + col.name);
   let items = col.items;
   items = items.filter((item) => item.project && item.project.name);
@@ -61,9 +64,10 @@ function cols_item_as_links(my, col, lines) {
     let name = item.project.name;
     let id = item.projectId;
     let updatedAt = item.updatedAt;
-    updatedAt = `<!-- ${updatedAt} -->`;
+    // updatedAt = `<!-- ${updatedAt} -->`;
     updatedAt = ''; // !!@ Disable
-    lines.push(`[${name}](https://editor.p5js.org/${my.user_name}/sketches/${id})${updatedAt}  `);
+    let mname = markDownQuote(name);
+    lines.push(`[${mname}](https://editor.p5js.org/${my.user_name}/sketches/${id})${updatedAt}  `);
   });
 }
 

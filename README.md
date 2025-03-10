@@ -14,6 +14,7 @@
 # download, unzip, and generate index for a editor.p5js user p5name
 
 bin/mirror.sh --user p5name
+bin/mirror.sh --user p5name --clean
 
 ```
 
