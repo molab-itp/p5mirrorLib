@@ -51,7 +51,7 @@ function cols_item_as_links(my, col, lines) {
   lines.push('');
   // lines.push('# ' + col.name);
   let id = col.id;
-  lines.push(`[${col.name}](https://editor.p5js.org/${my.user_name}/collections/${id})`);
+  lines.push(`# [${col.name}](https://editor.p5js.org/${my.user_name}/collections/${id})`);
   // console.log('# ' + col.name);
   let items = col.items;
   items = items.filter((item) => item.project && item.project.name);
