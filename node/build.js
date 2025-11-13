@@ -67,6 +67,16 @@ async function run() {
   // console.log('');
 }
 
+// let mfile = markDownQuote(afile);
+// let efile = encodeURIComponent(afile);
+// let id = extract_id(afile);
+// // console.log('afile', afile);
+// let p5js = `[p5js](https://editor.p5js.org/${my.user_name}/sketches/${id})`;
+// lines.push(`- [${mfile}](./p5projects/${efile}) \[${p5js}\]`);
+
+// let id = item.id;
+// let name = fixForFileName(item.name + '-' + id);
+
 function list_sketches(sks, list_path) {
   // console.log('sks', sks);
   // console.log('sks.length', sks.length);
@@ -80,8 +90,12 @@ function list_sketches(sks, list_path) {
     let id = item.id;
     let updatedAt = item.updatedAt;
     let mname = markDownQuote(name);
+    let fname = fixForFileName(item.name + '-' + id);
+    let efile = encodeURIComponent(fname);
+    let fpath = `../../p5projects/${efile}`;
     // let mid = markDownQuote(id);
-    lines.push(`[${mname}](https://editor.p5js.org/${my.user_name}/sketches/${id})<!-- ${updatedAt} -->  `);
+    let p5js = `[p5js](https://editor.p5js.org/${my.user_name}/sketches/${id})`;
+    lines.push(`[${mname}](${fpath}) \[${p5js}\]<!-- ${updatedAt} -->  `);
   });
   fs.writeFileSync(list_path, lines.join('\n'));
 }

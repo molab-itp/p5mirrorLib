@@ -12,9 +12,10 @@ function fixForFileName(str) {
     counts[str] = 1;
     return str;
   }
-  let nstr = str + '-' + count;
-  counts[str] = count + 1;
-  return nstr;
+  // let nstr = str + '-' + count;
+  // counts[str] = count + 1;
+  // return nstr;
+  return str;
 }
 
 module.exports.fixForFileName = fixForFileName;
