@@ -132,8 +132,8 @@ function download_sh(sks, download_sh_path, unzip_sh_path, last_updatedAt) {
   }
   unzip_lines.push(`
 cd ..
-# remove redundant p5.js p5.sound.min.js
-rm -f p5projects/*/p5.*
+# remove redundant p5.js p5.sound.min.js ml5.min.js
+rm -f p5projects/*/p5.* p5projects/*/ml5.min.js
 # sync last_updatedAt.txt
 cd downloads/json
 if [ -e pending_updatedAt.txt ]; then
