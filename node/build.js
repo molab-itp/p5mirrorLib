@@ -122,7 +122,7 @@ function download_sh(sks, download_sh_path, unzip_sh_path, last_updatedAt) {
     let name = fixForFileName(item.name + '-' + id);
     download_lines.push(`echo download ${index} "${name}"`);
     download_lines.push(
-      `curl -s https://editor.p5js.org/editor/projects/${id}/zip -o "${my.downloads_path}/zips/${name}.zip"`
+      `curl -s https://editor.p5js.org/editor/projects/${id}/zip -o "${my.downloads_path}/zips/${name}.zip"`,
     );
     unzip_sh(unzip_lines, index, name);
     count++;
@@ -186,14 +186,17 @@ async function read_href(sketch_href, json_path) {
   }
   try {
     const response = await axios.get(sketch_href);
-    const sks = response.data;
+    // console.log('read_href response', response);
+    // console.log('read_href response.data', response.data);
+    // console.log('read_href response.data.projects', response.data.projects);
+    const sks = response.data.projects;
     if (my.verboseFlag) {
       console.log('sketch n', sks.length);
     }
     sks.sort((item1, item2) => item1.name.localeCompare(item2.name));
     fs.writeJsonSync(json_path, sks, { spaces: 2 });
   } catch (err) {
-    // console.log('read_href err', err);
+    console.log('read_href err', err);
     console.log('read_href error sketch_href', sketch_href);
   }
   if (my.verboseFlag) {

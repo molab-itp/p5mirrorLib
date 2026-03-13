@@ -16,6 +16,10 @@
 bin/mirror.sh --user p5name
 bin/mirror.sh --user p5name --clean
 
+./bin/z-clean.sh
+Enter y to remove all derived files: y
+removing derived files
+
 ```
 
 ## Generated files
